@@ -1,0 +1,18 @@
+{
+	"name": "item.patchouli:test_book_2.name",
+	"landing_text": "item.patchouli:test_book_2.landing",
+	"subtitle": "Cool book!",
+	"text_color": "bf1111",
+	"header_color": "114fbf",
+	"nameplate_color": "d52eff",
+	"progress_bar_background": "8892c9",
+	"progress_bar_color": "da3423",
+	"macros": {
+		"$(potato)": "(POTATO MACRO)"
+	},
+	"model": "patchouli:book_green",
+	"creative_tab": "minecraft:natural_blocks",
+	"advancements_tab": "patchouli",
+	"i18n": true,
+	"use_resource_pack": true
+}

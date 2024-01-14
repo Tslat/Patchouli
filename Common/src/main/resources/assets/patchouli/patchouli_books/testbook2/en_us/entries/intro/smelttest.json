@@ -1,0 +1,63 @@
+{
+    "name": "ur mom gay",
+    "icon": "minecraft:furnace",
+    "category": "patchouli:intro",
+    "priority": true,
+    "entry_color": "114fbf",
+    "pages": [
+        {
+            "type": "patchouli:doublerecipe",
+            "foo": "minecraft:piston",
+            "bar": "minecraft:clock",
+            "recipe1.blarg": "blarg",
+            "recipe2.blarg": "asdadfs",
+            "recipe1.nn.output": "aaaaa",
+            "recipe2.nn.output": "bbbbb"
+        },
+        {
+            "type": "patchouli:multiblock",
+            "name": "Goldzebo",
+            "multiblock": {
+                "pattern": [
+                    [
+                        " GRG ",
+                        "GGRGG",
+                        "RRNRR",
+                        "GGRGG",
+                        " GRG "
+                    ], [
+                        "GG GG",
+                        "G   G",
+                        "     ",
+                        "G   G",
+                        "GG GG"
+                    ],[
+                        "G   G",
+                        "     ",
+                        "     ",
+                        "     ",
+                        "G   G"
+                    ], [
+                        "G   G",
+                        "     ",
+                        "  0  ",
+                        "     ",
+                        "G   G"
+                    ], [
+                         "_WWW_",
+                         "WWWWW",
+                         "WWWWW",
+                         "WWWWW",
+                         "_WWW_"
+                    ]
+                ],
+                "mapping": {
+                    "G": "minecraft:gold_block",
+                    "W": "#minecraft:wool",
+                    "R": "minecraft:red_terracotta",
+                    "N": "minecraft:note_block[note=4]"
+                }
+            }
+        }
+    ]
+}

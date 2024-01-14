@@ -1,0 +1,13 @@
+{
+  "name": "A Smelting Yes Haha",
+  "icon": "minecraft:furnace",
+  "category": "patchouli:burning_dab",
+  "pages": [
+    {
+      "type": "patchouli:smelting",
+      "text": "Haha yes",
+      "recipe": "minecraft:charcoal",
+      "recipe2": "minecraft:carrot"
+    }
+  ]
+}

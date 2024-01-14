@@ -1,0 +1,7 @@
+{
+  "name": "Sortnum 3",
+  "parent": "patchouli:sortnum",
+  "description": "Testing Sortnum - Entries Sortnum - Some will have same Sortnum keys",
+  "icon": "minecraft:textures/item/beetroot.png",
+  "sortnum": 30000
+}

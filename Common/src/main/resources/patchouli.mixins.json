@@ -1,0 +1,24 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "vazkii.patchouli.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AccessorSmithingTransformRecipe",
+    "AccessorSmithingTrimRecipe"
+  ],
+  "client": [
+    "client.AccessorClientAdvancements",
+    "client.AccessorKeyMapping",
+    "client.AccessorMultiBufferSource",
+    "client.AccessorScreen",
+    "client.MixinClientAdvancements",
+    "client.MixinInventoryScreen",
+    "client.MixinLevelRenderer",
+    "client.MixinSystemReport"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "patchouli.refmap.json"
+}

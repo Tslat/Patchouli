@@ -1,0 +1,12 @@
+{
+  "name": "zEntry",
+  "icon": "minecraft:textures/item/clock_00.png",
+  "category": "patchouli:test_sort0",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Sortnum test! This contents of this page doesn't matter. Where it ends up on the category listing does."
+    }
+  ]
+}

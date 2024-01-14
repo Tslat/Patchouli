@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "patchouli",
-  "version": "${version}",
+  "id": "${mod_id}",
+  "version": "${mod_version}",
 
-  "name": "Patchouli",
+  "name": "${mod_name}",
   "description": "Patchouli: Accessible, Data-Driven, Dependency-Free Documentation for Minecraft Modders and Pack Makers",
   "authors": [
     "Vazkii",
@@ -30,13 +30,13 @@
     ]
   },
   "mixins": [
-    "patchouli_xplat.mixins.json",
+    "patchouli.mixins.json",
     "patchouli_fabric.mixins.json"
   ],
 
   "depends": {
-    "fabricloader": ">=0.14.21",
-    "fabric": ">=0.87.0",
-    "minecraft": ">=1.20.1 <1.21"
+    "fabricloader": ">=0.15.0",
+    "fabric": ">=0.91.0",
+    "minecraft": ">=1.20.4"
   }
 }

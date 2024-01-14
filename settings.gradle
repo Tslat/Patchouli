@@ -1,25 +1,26 @@
 pluginManagement {
-    plugins {
-        id 'net.minecraftforge.gradle' version '6.0.6' apply false
-        id 'org.spongepowered.mixin' version '0.7-SNAPSHOT' apply false
-        id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT' apply false
-        id 'fabric-loom' version '1.2.7' apply false
-    }
     repositories {
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-        maven {
-            name = 'Forge'
-            url = 'https://maven.minecraftforge.net'
-        }
-        maven {
-            name = 'Sponge'
-            url = 'https://repo.spongepowered.org/repository/maven-public/'
-        }
         gradlePluginPortal()
+        maven { url = 'https://maven.fabricmc.net/' }
+        maven { url = 'https://maven.neoforged.net/' }
+        maven { url = 'https://maven.minecraftforge.net/' }
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        maven { url = 'https://maven.parchmentmc.org' }
+        maven { url = 'https://plugins.gradle.org/m2/' }
+    }
+
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.toString() == 'org.spongepowered.mixin') {
+                useModule("org.spongepowered:mixingradle:${requested.version}")
+            }
+        }
     }
 }
+
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.5.0'
+}
+
 rootProject.name = 'Patchouli'
-include("Xplat", "Fabric", "Forge")
+include("Common", "Fabric", "Forge", "NeoForge")

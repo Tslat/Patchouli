@@ -4,7 +4,7 @@ build
 out
 .idea/*
 !.idea/scopes
-Xplat/logs/
+Common/logs/
 
 ## ForgeGradle
 /run/*
@@ -18,5 +18,5 @@ Xplat/logs/
 
 # Java
 Fabric/bin/
-Xplat/bin/
+Common/bin/
 Forge/bin/

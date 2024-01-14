@@ -2,18 +2,15 @@ package vazkii.patchouli.forge.network;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.network.PacketDistributor;
-
 import vazkii.patchouli.client.book.ClientBookRegistry;
-
-import java.util.function.Supplier;
 
 public class ForgeMessageReloadBookContents {
 	public ForgeMessageReloadBookContents() {}
 
 	public static void sendToAll(MinecraftServer server) {
-		ForgeNetworkHandler.CHANNEL.send(PacketDistributor.ALL.noArg(), new ForgeMessageReloadBookContents());
+		ForgeNetworkHandler.CHANNEL.send(new ForgeMessageReloadBookContents(), PacketDistributor.ALL.noArg());
 	}
 
 	public void encode(FriendlyByteBuf buf) {}
@@ -22,8 +19,8 @@ public class ForgeMessageReloadBookContents {
 		return new ForgeMessageReloadBookContents();
 	}
 
-	public void handle(Supplier<NetworkEvent.Context> ctx) {
-		ctx.get().enqueueWork(() -> ClientBookRegistry.INSTANCE.reload());
-		ctx.get().setPacketHandled(true);
+	public void handle(CustomPayloadEvent.Context ctx) {
+		ctx.enqueueWork(ClientBookRegistry.INSTANCE::reload);
+		ctx.setPacketHandled(true);
 	}
 }

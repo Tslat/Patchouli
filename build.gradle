@@ -1,29 +1,63 @@
-buildscript {
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath "com.diffplug.spotless:spotless-plugin-gradle:5.12.5"
-    }
+plugins {
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
 }
 
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'pmd'
-    apply plugin: "com.diffplug.spotless"
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
     apply plugin: 'maven-publish'
+
+    ext.projectProperties = [
+            mod_id: mod_id,
+            mod_name: mod_name,
+            mod_version: version,
+            minecraft_version: minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            forge_version: forge_version,
+            forge_version_range: forge_version_range,
+            forge_loader_version_range: forge_loader_version_range,
+            neoforge_version: neoforge_version,
+            neoforge_version_range: neoforge_version_range,
+            neoforge_loader_version_range: neoforge_loader_version_range,
+            fabric_version: fabric_version,
+            fabric_loader_version: fabric_loader_version,
+            pack_format: pack_format
+    ]
+
+    def IS_COMMON = it.name == "Common"
+
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
     java.withSourcesJar()
-    archivesBaseName = "${mod_name}"
+
+    archivesBaseName = "${mod_name}-${it.name}-${minecraft_version}"
+
+    jar {
+        manifest {
+            attributes([
+                    'Specification-Title'     : mod_name,
+                    'Specification-Vendor'    : mod_author,
+                    'Specification-Version'   : project.jar.archiveVersion,
+                    'Implementation-Title'    : project.name,
+                    'Implementation-Version'  : project.jar.archiveVersion,
+                    'Implementation-Vendor'   : mod_author,
+                    'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                    'Timestamp'              : System.currentTimeMillis(),
+                    'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
+                    'Built-On-Minecraft'      : minecraft_version
+            ])
+        }
+    }
 
     repositories {
         mavenCentral()
-
+        maven { url = 'https://maven.parchmentmc.org' }
         maven {
-            name = 'Sponge / Mixin'
-            url = 'https://repo.spongepowered.org/repository/maven-public/'
+            name = "JEI"
+            url "https://maven.blamejared.com/"
+            content {
+                includeGroup "mezz.jei"
+            }
         }
     }
 
@@ -32,14 +66,44 @@ subprojects {
         it.options.release = 17
     }
 
-    tasks.withType(GenerateModuleMetadata).configureEach {
-        it.enabled = false
+    tasks.withType(GenerateModuleMetadata) {
+        enabled = false
     }
 
-    pmd {
-        toolVersion '6.35.0'
-        incrementalAnalysis.set(true)
-        ruleSetFiles = rootProject.files("spotless/pmd-ruleset.xml")
+    idea {
+        module {
+            inheritOutputDirs = false
+            outputDir = compileJava.destinationDirectory.asFile.get() as File
+        }
+    }
+
+    if (!IS_COMMON) {
+        sourceSets.main.resources.srcDirs += 'src/generated/resources'
+
+        dependencies {
+            compileOnly project(":Common")
+        }
+
+        tasks.withType(JavaCompile).matching(it2 -> !it2.name.startsWith("neo")).configureEach {
+            source(project(":Common").sourceSets.main.allSource)
+        }
+
+        sourcesJar {
+            from(project(":Common").sourceSets.main.allSource)
+        }
+
+        processResources {
+            from project(":Common").sourceSets.main.resources
+            inputs.properties project.ext.projectProperties
+            project.ext.projectProperties.put 'project', project
+
+            filesMatching(['META-INF/mods.toml', 'fabric.mod.json', 'pack.mcmeta']) {
+                expand project.ext.projectProperties
+            }
+
+            if (!it.name.equals("Common") && !it.name.equals("Fabric"))
+                exclude '**/*.accesswidener'
+        }
     }
 
     jar {
@@ -55,16 +119,5 @@ subprojects {
         exclude "**/data/patchouli/patchouli_books/**"
         exclude "**/data/patchouli/advancements/**"
         exclude "**/data/patchouli/recipes/**"
-    }
-
-    spotless {
-        enforceCheck = false // workaround around jenkins having wrong line endings in some files
-        // we explicitly check in github actions builds
-        java {
-            indentWithTabs()
-            eclipse().configFile rootProject.file('spotless/eclipseformat.xml')
-            removeUnusedImports()
-            importOrderFile rootProject.file('spotless/eclipse.importorder')
-        }
     }
 }

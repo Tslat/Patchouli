@@ -1,7 +1,0 @@
-{
-  "name": "Sortnum 2",
-  "parent": "patchouli:sortnum",
-  "description": "Testing Sortnum - Entries without Sortnum vs Entries with Sortnum",
-  "icon": "minecraft:textures/item/arrow.png",
-  "sortnum": 20000
-}

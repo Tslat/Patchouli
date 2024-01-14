@@ -1,0 +1,45 @@
+plugins {
+    id 'net.neoforged.gradle.userdev' version '7.+'
+}
+
+//minecraft.accessTransformers.file file('src/main/resources/META-INF/accesstransformer.cfg')
+
+subsystems {
+    parchment {
+        minecraftVersion = mappings_mc_version
+        mappingsVersion = parchment_version
+    }
+}
+
+runs {
+    configureEach {
+        systemProperty 'forge.logging.console.level', 'debug'
+        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+
+        modSource project.sourceSets.main
+        modSource project(":Common").sourceSets.main
+    }
+
+    client {
+        //taskName 'Client'
+    }
+
+    server {
+        //taskName 'Server'
+        //args '--nogui'
+    }
+
+    data {
+        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+    }
+}
+
+repositories {
+}
+
+dependencies {
+    implementation "net.neoforged:neoforge:${neoforge_version}"
+
+    if (project.hasProperty("jei_version"))
+        implementation "mezz.jei:jei-1.20.1-common-api:${project.jei_version}"
+}

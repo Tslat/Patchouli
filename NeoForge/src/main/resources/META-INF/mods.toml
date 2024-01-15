@@ -13,6 +13,9 @@ description='''
 Accessible, Data-Driven, Dependency-Free Documentation for Minecraft Modders and Pack Makers
 '''
 
+[[mixins]]
+config="${mod_id}.mixins.json"
+
 [[dependencies.${mod_id}]]
 modId="neoforge"
 type="required"

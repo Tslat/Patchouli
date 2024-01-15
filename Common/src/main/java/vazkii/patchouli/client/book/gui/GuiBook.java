@@ -128,13 +128,19 @@ public abstract class GuiBook extends Screen {
 			mouseY /= scaleFactor;
 		}
 
-		drawScreenAfterScale(graphics, mouseX, mouseY, partialTicks);
+		super.render(graphics, mouseX, mouseY, partialTicks);
 		graphics.pose().popPose();
+	}
+
+	@Override
+	public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+
+		drawScreenAfterScale(guiGraphics, mouseX, mouseY, partialTick);
 	}
 
 	private void drawScreenAfterScale(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
 		resetTooltip();
-		renderBackground(graphics, mouseX, mouseY, partialTicks);
 
 		graphics.pose().pushPose();
 		graphics.pose().translate(bookLeft, bookTop, 0);
@@ -142,8 +148,6 @@ public abstract class GuiBook extends Screen {
 		drawBackgroundElements(graphics, mouseX, mouseY, partialTicks);
 		drawForegroundElements(graphics, mouseX, mouseY, partialTicks);
 		graphics.pose().popPose();
-
-		super.render(graphics, mouseX, mouseY, partialTicks);
 
 		IXplatAbstractions.INSTANCE.fireDrawBookScreen(this.book.id, this, mouseX, mouseY, partialTicks, graphics);
 

@@ -1,12 +1,12 @@
 modLoader="javafml"
 license="CC BY-NC-SA 3.0"
-loaderVersion="${neoforge_version_range}"
+loaderVersion="${neoforge_loader_version_range}"
 issueTrackerURL="https://github.com/VazkiiMods/Patchouli"
 logoFile="logo.png"
 
 [[mods]]
-modId="patchouli"
-displayName="Patchouli"
+modId="${mod_id}"
+displayName="${mod_name}"
 version="${mod_version}"
 authors="Vazkii"
 description='''
@@ -14,9 +14,9 @@ Accessible, Data-Driven, Dependency-Free Documentation for Minecraft Modders and
 '''
 
 [[dependencies.${mod_id}]]
-modId="forge"
+modId="neoforge"
 type="required"
-versionRange="[47.1.3,)"
+versionRange="${neoforge_version_range}"
 
 [[dependencies.${mod_id}]]
 modId="minecraft"

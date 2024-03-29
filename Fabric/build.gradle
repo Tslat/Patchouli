@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.4.+'
+	id 'fabric-loom' version '1.5.+'
 }
 
 repositories {
@@ -37,7 +37,7 @@ dependencies {
 	modCompileOnly include("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") { transitive = false }
 
 	if (project.hasProperty("jei_version"))
-		modCompileOnly "mezz.jei:jei-1.20.1-common-api:${project.jei_version}"
+		modCompileOnly "mezz.jei:jei-1.20.4-common-api:${project.jei_version}"
 }
 
 loom {
